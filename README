@@ -1,0 +1,25 @@
+Oyster is an abstract, lightweight GUI thingy for use in a 3d setting. It handles 
+basic 2d polygons and text using texture atlases. Not specific to any 3d engine,
+outputs simple raw mesh data that can easily be adapted to work with any rendering 
+setup (and screen-aligned or whatever you need with it).
+
+Inspired by Gorilla, an excellent lightweight GUI system for OGRE3d.
+
+And about the name... I have no clue, first thing that came to mind.
+
+This is a quick hacky creation for my own needs, but I've always wanted to release
+something under the WTFPL, so there ya go.
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
+                    Version 2, December 2004 
+
+ Copyright (C) 2004 Sam Hocevar <sam@hocevar.net> 
+
+ Everyone is permitted to copy and distribute verbatim or modified 
+ copies of this license document, and changing it is allowed as long 
+ as the name is changed. 
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
+
+  0. You just DO WHAT THE FUCK YOU WANT TO. 
