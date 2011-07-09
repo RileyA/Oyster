@@ -1,3 +1,6 @@
+#ifndef OYSTER_ATLAS_H
+#define OYSTER_ATLAS_H
+
 #include "OysterStdHeaders.h"
 
 namespace Oyster
@@ -7,13 +10,13 @@ namespace Oyster
 	public:
 
 		/** Constructor, takes a pointer to a filestream for a definition file */
-		Atlas::Atlas(std::ifstream* definition)
+		Atlas(std::ifstream* definition)
 		{
 
 		}
 		//-------------------------------------------------------------------------
 
-		Atlas::~Atlas()
+		~Atlas()
 		{
 			
 		}
@@ -25,3 +28,5 @@ namespace Oyster
 
 	};
 }
+
+#endif

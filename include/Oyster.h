@@ -1,3 +1,6 @@
+#ifndef OYSTER_H
+#define OYSTER_H
+
 #include "OysterStdHeaders.h"
 #include "OysterAtlas.h"
 #include "OysterBatch.h"
@@ -17,33 +20,91 @@ namespace Oyster
 
 		~Oyster()
 		{
-			while(!mBatches.empty())
-			{
-				delete mBatches.front();
-				mBatches.pop_front();
-			}
-			while(!mAtlases.empty())
-			{
-				delete mAtlases.front();
-				mAtlases.pop_front();
-			}
+			for(std::map<String,Batch*>::iterator it = mBatches.begin(); it != 
+				mBatches.end(); ++it)
+				delete it->second;
+			for(std::map<String,Atlas*>::iterator it = mAtlases.begin(); it != 
+				mAtlases.end(); ++it)
+				delete it->second;
 		}
 		//-------------------------------------------------------------------
 
 		/** Create an Atlas based on a .atlas definition file */
-		void createAtlas(String filename)
+		Atlas* createAtlas(String name, String filename)
 		{
-			std::ifstream file(filename);
+			if(mAtlases.find(name) != mAtlases.end())
+				throw std::runtime_error("An Atlas by that name already exists!");
+
+			std::ifstream file(filename.c_str());
 			if(!file.is_open())
 				throw std::runtime_error("Atlas file failed to load!");
-			mAtlases.push_back(new Atlas(&file));
-			file.close();
-		}
 
+			Atlas* a = new Atlas(&file);
+
+			file.close();
+
+			mAtlases[name] = a;
+			return a;
+		}
+		//-------------------------------------------------------------------
+
+		/** Creates a Batch */
+		Batch* createBatch(String name, String atlasname)
+		{
+			if(mBatches.find(name) != mBatches.end())
+				throw std::runtime_error("A Batch by that name already exists!");
+			if(mAtlases.find(atlasname) == mAtlases.end())
+				throw std::runtime_error("No such Atlas!");
+			Batch* b = new Batch(mAtlases[atlasname]);
+			mBatches[name] = b;
+			return b;
+		}
+		//-------------------------------------------------------------------
+
+		void destroyBatch(Batch* batch)
+		{
+			for(std::map<String,Batch*>::iterator it = mBatches.begin(); it != 
+				mBatches.end(); ++it)
+			{
+				if(it->second == batch)
+				{
+					delete it->second;
+					mBatches.erase(it);
+					return;
+				}
+			}
+		}
+		//-------------------------------------------------------------------
+
+		void destroyBatch(String batch)
+		{
+			std::map<String, Batch*>::iterator it = mBatches.find(batch);
+			if(it != mBatches.end())
+			{
+				delete it->second;
+				mBatches.erase(it);
+			}
+		}
+		//-------------------------------------------------------------------
+
+		Batch* getBatch(String name)
+		{
+			return mBatches.find(name) == mBatches.end() ? 0 : mBatches[name];
+		}
+		//-------------------------------------------------------------------
+		
+		Atlas* getAtlas(String name)
+		{
+			return mAtlases.find(name) == mAtlases.end() ? 0 : mAtlases[name];
+		}
+		//-------------------------------------------------------------------
+	
 	private:
 
-		std::list<Batch*> mBatches;
-		std::list<Atlas*> mAtlases;
+		std::map<String,Batch*> mBatches;
+		std::map<String,Atlas*> mAtlases;
 
 	};
 }
+
+#endif
