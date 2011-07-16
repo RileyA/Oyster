@@ -3,6 +3,7 @@
 
 #include "OysterStdHeaders.h"
 #include "OysterMesh.h"
+#include "OysterAtlas.h"
 
 namespace Oyster
 {
@@ -11,8 +12,8 @@ namespace Oyster
 	{
 	public:
 
-		Drawable()
-			:mFlags(1<<3)
+		Drawable(Atlas* atlas)
+			:mFlags(1<<3), mAtlas(atlas), mColor(255,255,255,255)
 		{
 		
 		}
@@ -39,6 +40,7 @@ namespace Oyster
 		{
 			mPosX = x;
 			mPosY = y;
+			mFlags |= 1;
 		}
 		//-------------------------------------------------------------------	
 
@@ -47,18 +49,27 @@ namespace Oyster
 		{
 			mScaleX = x;
 			mScaleY = y;
+			mFlags |= 1;
 		}
 		//-------------------------------------------------------------------	
 
-	private:
+		virtual void setColor(int r, int g, int b, int a)
+		{
+			mColor = Color(r,b,g, a);
+		}
+
+	protected:
 
 		DirtyFlags mFlags;
+		Atlas* mAtlas;
 
 		// these are in pixels
 		int mPosX;
 		int mPosY;
 		int mScaleX;
 		int mScaleY;
+
+		Color mColor;
 
 	};
 }

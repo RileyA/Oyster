@@ -12,8 +12,8 @@ namespace Oyster
 	{
 	public:
 
-		Batch(Atlas* atlas)
-			:mAtlas(atlas),mMesh()
+		Batch(Atlas* atlas, size_t w, size_t h)
+			:mAtlas(atlas),mMesh(w, h, mAtlas->getAtlasWidth(),mAtlas->getAtlasHeight())
 		{
 
 		}
@@ -31,7 +31,8 @@ namespace Oyster
 		{
 			if(mLayers.find(index) != mLayers.end())
 				throw std::runtime_error("A Layer already exists at that index!");
-			mLayers[index] = new Layer();
+			mLayers[index] = new Layer(mAtlas);
+			return mLayers[index];
 		}
 		//-------------------------------------------------------------------------
 
@@ -44,9 +45,10 @@ namespace Oyster
 
 		/** Updates this batch (to be called every frame), returns a bitfield of
 		 *		info about what needs to be updated */
-		DirtyFlags update()
+		void update()
 		{
 			DirtyFlags flag = 0;
+
 			// figure out what needs updating
 			for(std::map<int,Layer*>::iterator it = mLayers.begin(); it != 
 				mLayers.end(); ++it)

@@ -11,7 +11,8 @@ namespace Oyster
 	{
 	public:
 
-		Layer()
+		Layer(Atlas* atlas)
+			:mAtlas(atlas)
 		{
 
 		}
@@ -19,7 +20,8 @@ namespace Oyster
 
 		~Layer()
 		{
-
+			for(int i = 0; i < mDrawables.size(); ++i)
+				delete mDrawables[i];
 		}
 		//-------------------------------------------------------------------	
 
@@ -41,7 +43,7 @@ namespace Oyster
 
 		Rectangle* createRectangle(int x, int y, int w, int h, int r = 0, int g = 0, int b = 0)
 		{
-			Rectangle* rect = new Rectangle();
+			Rectangle* rect = new Rectangle(mAtlas);
 
 			rect->setPosition(x,y);
 			rect->setScale(w,h);
@@ -49,9 +51,24 @@ namespace Oyster
 			mDrawables.push_back(rect);
 			return rect;
 		}
+		//-------------------------------------------------------------------	
+
+		Text* createText(String caption, int x, int y, int w, int h, 
+			int r = 0, int g = 0, int b = 0)
+		{
+			Text* t = new Text(mAtlas, caption);
+
+			t->setPosition(x,y);
+			t->setScale(w,h);
+
+			mDrawables.push_back(t);
+			return t;
+		}
+		//-------------------------------------------------------------------	
 
 	private:
 
+		Atlas* mAtlas;
 		std::vector<Drawable*> mDrawables;
 
 	};

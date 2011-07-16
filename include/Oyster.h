@@ -12,9 +12,10 @@ namespace Oyster
 	{
 	public:
 
-		Oyster()
+		Oyster(size_t w, size_t h)
+			:mWidth(w),mHeight(h)
 		{
-			
+
 		}
 		//-------------------------------------------------------------------
 
@@ -49,13 +50,18 @@ namespace Oyster
 		//-------------------------------------------------------------------
 
 		/** Creates a Batch */
-		Batch* createBatch(String name, String atlasname)
+		Batch* createBatch(String name, String atlasname, size_t w = 0, size_t h = 0)
 		{
+			if(!w)
+				w = mWidth;
+			if(!h)
+				h = mHeight;
+
 			if(mBatches.find(name) != mBatches.end())
 				throw std::runtime_error("A Batch by that name already exists!");
 			if(mAtlases.find(atlasname) == mAtlases.end())
 				throw std::runtime_error("No such Atlas!");
-			Batch* b = new Batch(mAtlases[atlasname]);
+			Batch* b = new Batch(mAtlases[atlasname], w, h);
 			mBatches[name] = b;
 			return b;
 		}
@@ -103,6 +109,8 @@ namespace Oyster
 
 		std::map<String,Batch*> mBatches;
 		std::map<String,Atlas*> mAtlases;
+		size_t mWidth;
+		size_t mHeight;
 
 	};
 }
