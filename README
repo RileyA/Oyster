@@ -3,12 +3,16 @@ basic 2d polygons and text using texture atlases. Not specific to any 3d engine,
 outputs simple raw mesh data that can easily be adapted to work with any rendering 
 setup (and screen-aligned or whatever you need with it).
 
+No dependencies except C/C++ standard libs. Header-only.
+
 Inspired by Gorilla, an excellent lightweight GUI system for OGRE3d.
 
 And about the name... I have no clue, first thing that came to mind.
 
 This is a quick hacky creation for my own needs, but I've always wanted to release
 something under the WTFPL, so there ya go.
+
+----------------------------------------------------------------------
 
             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
                     Version 2, December 2004 

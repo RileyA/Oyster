@@ -26,6 +26,20 @@ namespace Oyster
 		unsigned int b;
 		unsigned int a;
 	};
+
+	enum VerticalAlign
+	{
+		VA_CENTER,
+		VA_TOP,
+		VA_BOTTOM
+	};
+
+	enum HorizontalAlign
+	{
+		HA_LEFT,
+		HA_CENTER,
+		HA_RIGHT
+	};
 }
 
 #endif
