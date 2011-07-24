@@ -12,7 +12,7 @@ namespace Oyster
 	public:
 
 		Layer(Atlas* atlas)
-			:mAtlas(atlas)
+			:mAtlas(atlas),mFlags(0)
 		{
 
 		}
@@ -27,7 +27,7 @@ namespace Oyster
 
 		DirtyFlags needsUpdate()
 		{
-			DirtyFlags out = 0;
+			DirtyFlags out = mFlags;
 			for(int i = 0; i < mDrawables.size(); ++i)
 				out |= mDrawables[i]->getStatus();
 			return out;
@@ -38,6 +38,29 @@ namespace Oyster
 		{
 			for(int i = 0; i < mDrawables.size(); ++i)
 				mDrawables[i]->update(flag, mesh);
+			mFlags = 0;
+		}
+		//-------------------------------------------------------------------	
+		
+		void removeDrawable(Drawable* d, bool kill = true)
+		{
+			for(int i = 0; i < mDrawables.size(); ++i)
+			{
+				if(mDrawables[i] == d)
+				{
+					if(kill)
+						delete d;
+					mDrawables.erase(mDrawables.begin() + i);
+					mFlags |= 1<<3;
+					return;
+				}
+			}
+		}
+		//-------------------------------------------------------------------	
+
+		void addDrawable(Drawable* d)
+		{
+			mDrawables.push_back(d);
 		}
 		//-------------------------------------------------------------------	
 
@@ -70,6 +93,7 @@ namespace Oyster
 
 		Atlas* mAtlas;
 		std::vector<Drawable*> mDrawables;
+		DirtyFlags mFlags;
 
 	};
 }

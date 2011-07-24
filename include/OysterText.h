@@ -87,37 +87,25 @@ namespace Oyster
 			if(cursor + g->w + xoffset < 0)
 				return;// clip it all
 			else if(cursor + xoffset < 0)
-			{
-				// clip part
-				clipleft = - (cursor + xoffset);
-			}
+				clipleft = - (cursor + xoffset);// clip part
 
 			// right
 			if(cursor + xoffset > mScaleX)
 				return;// clip it all
 			else if(cursor + g->w + xoffset > mScaleX)
-			{
-				// clip part
-				clipright = (cursor + xoffset + g->w) - mScaleX;
-			}
+				clipright = (cursor + xoffset + g->w) - mScaleX;// clip part
 
 			// up
 			if(yoffset + lineheight < 0)
 				return;// clip it all
 			else if(yoffset < 0)
-			{
-				// clip part
-				cliptop = -yoffset;
-			}
+				cliptop = -yoffset;// clip part
 
 			// down
 			if(yoffset > mScaleY)
 				return;// clip it all
 			else if(yoffset + lineheight > mScaleY)
-			{
-				// clip part
-				clipbottom = (yoffset + lineheight) - mScaleY;
-			}
+				clipbottom = (yoffset + lineheight) - mScaleY;// clip part
 
 			if(updatePos)
 			{
@@ -189,6 +177,7 @@ namespace Oyster
 		void setCaption(String cap)
 		{
 			mCaption = cap;
+			mFlags |= 1<<3;
 		}
 		//-------------------------------------------------------------------
 

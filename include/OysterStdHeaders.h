@@ -9,6 +9,8 @@
 #include <fstream>
 #include <stdexcept>
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 namespace Oyster
 {
@@ -29,16 +31,16 @@ namespace Oyster
 
 	enum VerticalAlign
 	{
-		VA_CENTER,
-		VA_TOP,
-		VA_BOTTOM
+		VA_CENTER = 8,
+		VA_TOP = 16,
+		VA_BOTTOM = 32
 	};
 
 	enum HorizontalAlign
 	{
-		HA_LEFT,
-		HA_CENTER,
-		HA_RIGHT
+		HA_CENTER = 1,
+		HA_LEFT = 2,
+		HA_RIGHT = 4
 	};
 }
 

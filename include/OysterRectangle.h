@@ -103,6 +103,7 @@ namespace Oyster
 			v[1] = temp->y;
 			v[2] = temp->y + temp->h;
 			v[3] = temp->y + temp->h;
+			mFlags |= 2;
 		}
 		//-------------------------------------------------------------------	
 
@@ -117,6 +118,7 @@ namespace Oyster
 			v[1] = temp->y;
 			v[2] = temp->y + temp->h;
 			v[3] = temp->y + temp->h;
+			mFlags |= 2;
 		}
 
 	protected:

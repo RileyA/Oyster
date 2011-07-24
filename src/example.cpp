@@ -5,7 +5,7 @@
 int main(int argc, char** argv)
 {
 	// TODO...
-	Oyster::Oyster* oyster = new Oyster::Oyster();
+	Oyster::Oyster* oyster = new Oyster::Oyster(1024,768);
 
 	oyster->createAtlas("atlas1", "example.cpp");
 	Oyster::Batch* b = oyster->createBatch("batch1", "atlas1");

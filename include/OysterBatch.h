@@ -13,7 +13,8 @@ namespace Oyster
 	public:
 
 		Batch(Atlas* atlas, size_t w, size_t h)
-			:mAtlas(atlas),mMesh(w, h, mAtlas->getAtlasWidth(),mAtlas->getAtlasHeight())
+			:mAtlas(atlas),mMesh(w, h, mAtlas->getAtlasWidth(),mAtlas->getAtlasHeight()),
+				mWidth(w),mHeight(h)
 		{
 
 		}
@@ -43,9 +44,15 @@ namespace Oyster
 		}
 		//-------------------------------------------------------------------------
 
+		Layer* getOrCreateLayer(int index)
+		{
+			return getLayer(index) ? getLayer(index) : createLayer(index);
+		}
+		//-------------------------------------------------------------------------
+	
 		/** Updates this batch (to be called every frame), returns a bitfield of
 		 *		info about what needs to be updated */
-		void update()
+		DirtyFlags update()
 		{
 			DirtyFlags flag = 0;
 
@@ -59,15 +66,40 @@ namespace Oyster
 			// does any necessary updates
 			if(flag)
 			{
+				// clear mesh info as needed
+				if(flag & 1)
+					mMesh.vertices.clear();
+				if(flag & 2)
+					mMesh.texcoords.clear();
+				if(flag & 4)
+					mMesh.colors.clear();
+				if(flag & 8)
+					mMesh.indices.clear();
+
 				for(std::map<int,Layer*>::iterator it = mLayers.begin(); it != 
 					mLayers.end(); ++it)
 					it->second->update(flag, mMesh);
 			}
+
+			return flag;
 		}
+		//-------------------------------------------------------------------------
 	
 		const Mesh& getMesh()
 		{
 			return mMesh;
+		}
+		//-------------------------------------------------------------------------
+
+		int getWidth()
+		{
+			return mWidth;
+		}
+		//-------------------------------------------------------------------------
+
+		int getHeight()
+		{
+			return mHeight;
 		}
 		//-------------------------------------------------------------------------
 
@@ -76,6 +108,8 @@ namespace Oyster
 		Atlas* mAtlas;
 		Mesh mMesh;
 		std::map<int, Layer*> mLayers;
+		int mWidth;
+		int mHeight;
 
 	};
 }
