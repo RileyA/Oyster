@@ -67,13 +67,13 @@ namespace Oyster
 			if(flag)
 			{
 				// clear mesh info as needed
-				if(flag & 1)
+				if(flag & 1 || flag & 8)// 1
 					mMesh.vertices.clear();
-				if(flag & 2)
+				if(flag & 2 || flag & 8)// 1<<1
 					mMesh.texcoords.clear();
-				if(flag & 4)
+				if(flag & 4 || flag & 8)// 1<<2
 					mMesh.colors.clear();
-				if(flag & 8)
+				if(flag & 8)// 1<<3
 					mMesh.indices.clear();
 
 				for(std::map<int,Layer*>::iterator it = mLayers.begin(); it != 

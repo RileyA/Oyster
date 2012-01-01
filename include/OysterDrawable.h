@@ -56,6 +56,7 @@ namespace Oyster
 		virtual void setColor(int r, int g, int b, int a)
 		{
 			mColor = Color(r,b,g, a);
+			mFlags |= 4;
 		}
 		//-------------------------------------------------------------------	
 
